@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js",
+    "build-dev": "NODE_ENV=development node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start twitchmon.js",
+    "dev": "NODE_ENV=development nodemon twitchmon.js",
+    "stop": "pm2 stop twitchmon.js",
+    "exp": "set NODE_ENV=development && pm2 start ex.js --node-args=\"-r dotenv/config\""
   },
   "author": "",
   "license": "ISC",
