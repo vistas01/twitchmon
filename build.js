@@ -13,7 +13,7 @@ build().finally((res) => {
 async function build() {
   let channels = config.channels; // Obj[]
   let parsed_package_version = process.env.npm_package_version.replaceAll(".", "_"); // x_y_z
-  let db_name = ""; // String twitchmon_x_y_z or twitchmon_dev_x_y_z
+  let db_name = ""; // String twitchmon_x_y_z or twitchmon_x_y_z_dev
   let idSet = new Set(); // Set[id]
   if (process.env.NODE_ENV === "development") {
     db_name = `twitchmon_${parsed_package_version}_dev`;
@@ -42,18 +42,18 @@ async function build() {
   idSet.forEach((id) => {
     promises.push(
       db_query(`
-	            CREATE TABLE twitch_${id} (
+	            CREATE TABLE channelID_${id} (
 	            id int(11) NOT NULL AUTO_INCREMENT,
 	            created DATETIME(3) DEFAULT NOW(3),
 	            data json,
 	            PRIMARY KEY (id)
 	            );`)
         .then((res) => {
-          console.log(`Ok: CREATED TABLE twitch_${id}`);
+          console.log(`Ok: CREATED TABLE channelID_${id}`);
           return Promise.resolve(res);
         })
         .catch((err) => {
-          console.log(`Fail: ${err.code} twich_${id}`);
+          console.log(`Fail: ${err.code} channelID_${id}`);
           return Promise.reject(err);
         })
     );
